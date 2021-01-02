@@ -1,0 +1,286 @@
+[Unit]
+%{ if description != "" ~}
+Description=${description}
+%{ endif ~}
+%{ for src in documentation ~}
+Documentation=${trimspace(src)}
+%{ endfor ~}
+%{ for name in wants ~}
+Wants=${trimspace(name)}
+%{ endfor ~}
+%{ for name in requires ~}
+Requires=${trimspace(name)}
+%{ endfor ~}
+%{ for name in conflicts ~}
+Conflicts=${trimspace(name)}
+%{ endfor ~}
+%{ for name in before ~}
+Before=${trimspace(name)}
+%{ endfor ~}
+%{ for name in after ~}
+After=${trimspace(name)}
+%{ endfor ~}
+%{ for name in on_failure ~}
+OnFailure=${trimspace(name)}
+%{ endfor ~}
+%{ for name in propagates_reload_to ~}
+PropagatesReloadTo=${trimspace(name)}
+%{ endfor ~}
+%{ for name in reload_propagated_from ~}
+ReloadPropagatedFrom=${trimspace(name)}
+%{ endfor ~}
+%{ if default_dependencies == false ~}
+DefaultDependencies=no
+%{ endif ~}
+%{ if condition_architecture != "" ~}
+ConditionArchitecture=${condition_architecture}
+%{ endif ~}
+%{ if condition_virtualization != "" ~}
+ConditionVirtualization=${condition_virtualization}
+%{ endif ~}
+%{ if condition_first_boot ~}
+ConditionFirstBoot=yes
+%{ endif ~}
+%{ for condition in condition_path_exists ~}
+ConditionPathExists=${trimspace(condition)}
+%{ endfor ~}
+%{ for condition in condition_path_is_directory ~}
+ConditionPathIsDirectory=${trimspace(condition)}
+%{ endfor ~}
+%{ for condition in condition_path_is_symbolic_link ~}
+ConditionPathIsSymbolicLink=${trimspace(condition)}
+%{ endfor ~}
+%{ for condition in condition_path_is_mount_point ~}
+ConditionPathIsMountPoint=${trimspace(condition)}
+%{ endfor ~}
+%{ for condition in condition_path_is_read_write ~}
+ConditionPathIsReadWrite=${trimspace(condition)}
+%{ endfor ~}
+%{ for condition in condition_directory_not_empty ~}
+ConditionDirectoryNotEmpty=${trimspace(condition)}
+%{ endfor ~}
+%{ for condition in condition_file_not_empty ~}
+ConditionFileNotEmpty=${trimspace(condition)}
+%{ endfor ~}
+%{ for condition in condition_file_is_executable ~}
+ConditionFileIsExecutable=${trimspace(condition)}
+%{ endfor ~}
+%{ if condition_memory != "" ~}
+ConditionMemory=${trimspace(condition_memory)}
+%{ endif ~}
+%{ if condition_cpus != "" ~}
+ConditionCPUs=${trimspace(condition_cpus)}
+%{ endif ~}
+
+[Service]
+Type=${service_type}
+Restart=${restart}
+%{ if remain_after_exit ~}
+RemainAfterExit=yes
+%{ endif ~}
+%{ if pid_file != "" ~}
+PIDFile=${pid_file}
+%{ endif ~}
+%{ if bus_name != "" ~}
+BusName=${bus_name}
+%{ endif ~}
+%{ if notify_access != "" ~}
+NotifyAccess=${notify_access}
+%{ endif ~}
+%{ if user != "" ~}
+User=${user}
+%{ endif ~}
+%{ if group != "" ~}
+Group=${group}
+%{ endif ~}
+%{ if nice != 0 ~}
+Nice=${nice}
+%{ endif ~}
+%{ if restart_sec != 0 }
+RestartSec=${restart_sec}
+%{ endif ~}
+%{ if watchdog_sec != 0 }
+WatchdogSec=${watchdog_sec}
+%{ endif ~}
+%{ if timeout_start_sec != 0 }
+TimeoutStartSec=${timeout_start_sec}
+%{ endif ~}
+%{ if timeout_stop_sec != 0 }
+TimeoutStopSec=${timeout_stop_sec}
+%{ endif ~}
+%{ if timeout_abort_sec != 0 }
+TimeoutAbortSec=${timeout_abort_sec}
+%{ endif ~}
+%{ if private_tmp }
+PrivateTmp=yes
+%{ endif ~}
+%{ if protect_system != "" }
+ProtectsSystem=${protect_system}
+%{ endif ~}
+%{ if protect_home != "" }
+ProtectsHome=${protect_home}
+%{ endif ~}
+%{ for cmd in exec_start_pre ~}
+ExecStartPre=${trimspace(cmd)}
+%{ endfor ~}
+%{ for cmd in exec_start ~}
+ExecStart=${trimspace(cmd)}
+%{ endfor ~}
+%{ for cmd in exec_start_post ~}
+ExecStartPost=${trimspace(cmd)}
+%{ endfor ~}
+%{ for cmd in exec_stop ~}
+ExecStop=${trimspace(cmd)}
+%{ endfor ~}
+%{ for cmd in exec_stop_post ~}
+ExecStopPost=${trimspace(cmd)}
+%{ endfor ~}
+%{ for cmd in exec_reload ~}
+ExecReload=${trimspace(cmd)}
+%{ endfor ~}
+%{ for dir in working_directory ~}
+WorkingDirectory=${trimspace(dir)}
+%{ endfor ~}
+%{ for dir in working_directory ~}
+RuntimeDirectory=${trimspace(dir)}
+%{ endfor ~}
+%{ for dir in state_directory ~}
+StateDirectory=${trimspace(dir)}
+%{ endfor ~}
+%{ for dir in cache_directory ~}
+CacheDirectory=${trimspace(dir)}
+%{ endfor ~}
+%{ for dir in logs_directory ~}
+LogsDirectory=${trimspace(dir)}
+%{ endfor ~}
+%{ for dir in configuration_directory ~}
+ConfigurationDirectory=${trimspace(dir)}
+%{ endfor ~}
+%{ if runtime_directory_preserve != "" ~}
+RuntimeDirectoryPreserve=${runtime_directory_preserve}
+%{ endif ~}
+%{ if standard_input != "" ~}
+StandardInput=${standard_input}
+%{ endif ~}
+%{ if standard_output != "" ~}
+StandardOutput=${standard_output}
+%{ endif ~}
+%{ if kill_mode != "" ~}
+KillMode=${kill_mode}
+%{ endif ~}
+%{ if kill_signal != "" ~}
+KillSignal=${kill_signal}
+%{ endif ~}
+%{ if restart_kill_signal != "" ~}
+RestartKillSignal=${restart_kill_signal}
+%{ endif ~}
+%{ if watchdog_signal != "" ~}
+WatchdogSignal=${watchdog_signal}
+%{ endif ~}
+%{ if send_sighup ~}
+SendSIGHUP=yes
+%{ endif ~}
+%{ if ! send_sigkill ~}
+SendSIGKILL=no
+%{ endif ~}
+%{ if ignore_sigpipe ~}
+IgnoreSIGPIPE=yes
+%{ endif ~}
+%{ for socket in sockets }
+Sockets=${socket}
+%{ endfor ~}
+%{ if permissions_start_only ~}
+PermissionsStartOnly=yes
+%{ endif ~}
+%{ if no_new_privileges ~}
+NoNewPrivileges=yes
+%{ endif ~}
+%{ for cap in capability_bounding_set ~}
+CapabilityBoundingSet=${upper(trimspace(cap))}
+%{ endfor ~}
+%{ for cap in ambient_capabilities ~}
+AmbientCapabilities=${upper(trimspace(cap))}
+%{ endfor ~}
+%{ for env in environment ~}
+Environment=${env}
+%{ endfor ~}
+%{ for envfile in environment_file ~}
+EnvironmentFile=${envfile}
+%{ endfor ~}
+%{ if selinux_context != "" ~}
+SELinuxContext=${selinux_context}
+%{ endif ~}
+%{ if apparmor_profile != "" ~}
+AppArmorProfile=${apparmor_profile}
+%{ endif ~}
+%{ if limit_cpu != "" ~}
+LimitCPU=${limit_cpu}
+%{ endif ~}
+%{ if limit_fsize != "" ~}
+LimitFSIZE=${limit_fsize}
+%{ endif ~}
+%{ if limit_data != "" ~}
+LimitDATA=${limit_data}
+%{ endif ~}
+%{ if limit_stack != "" ~}
+LimitSTACK=${limit_stack}
+%{ endif ~}
+%{ if limit_core != "" ~}
+LimitCORE=${limit_core}
+%{ endif ~}
+%{ if limit_rss != "" ~}
+LimitRSS=${limit_rss}
+%{ endif ~}
+%{ if limit_nofile != "" ~}
+LimitNOFILE=${limit_nofile}
+%{ endif ~}
+%{ if limit_as != "" ~}
+LimitAS=${limit_as}
+%{ endif ~}
+%{ if limit_nproc != "" ~}
+LimitNPROC=${limit_nproc}
+%{ endif ~}
+%{ if limit_memlock != "" ~}
+LimitMEMLOCK=${limit_memlock}
+%{ endif ~}
+%{ if limit_locks != "" ~}
+LimitLOCKS=${limit_locks}
+%{ endif ~}
+%{ if limit_sigpending != "" ~}
+LimitSIGPENDING=${limit_sigpending}
+%{ endif ~}
+%{ if limit_msqueue != "" ~}
+LimitMSGQUEUE=${limit_msqueue}
+%{ endif ~}
+%{ if limit_nice != "" ~}
+LimitNICE=${limit_nice}
+%{ endif ~}
+%{ if limit_rptprio != "" ~}
+LimitRTPRIO=${limit_rptprio}
+%{ endif ~}
+%{ if limit_rttime != "" ~}
+LimitRTTIME=${limit_rttime}
+%{ endif ~}
+%{ if tasks_max != "" ~}
+LimitRTTIME=${tasks_max}
+%{ endif ~}
+%{ if oom_score_adjust != 0 ~}
+OOMScoreAdjust=${oom_score_adjust}
+%{ endif ~}
+%{ if tasks_max != "" ~}
+TasksMax=${tasks_max}
+%{ endif ~}
+
+[Install]
+%{ for name in wanted_by ~}
+WantedBy=${trimspace(name)}
+%{ endfor ~}
+%{ for name in required_by ~}
+RequiredBy=${trimspace(name)}
+%{ endfor ~}
+%{ for name in aliases ~}
+Alias=${trimspace(name)}
+%{ endfor ~}
+%{ for name in also ~}
+Also=${trimspace(name)}
+%{ endfor ~}
